@@ -1,2 +1,2 @@
-# eelam-songs
-react native music app
+# Eelam Songs
+a react native music app
