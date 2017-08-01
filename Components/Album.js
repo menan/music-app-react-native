@@ -187,7 +187,7 @@ export default class Album extends React.Component {
           <TouchableOpacity onPress={this.showPlayer.bind(this, rowId)} activeOpacity={ 100 } underlayColor="rgba(246, 41, 118, 0.6)">
             <View key={song} style={ styles.song }>
               <Text style={ styles.songTitle }>
-                { uni2cript(song.title) }
+                { song.title }
               </Text>
                 <LikeButton song={song} album={this.props.album} />
             </View>
