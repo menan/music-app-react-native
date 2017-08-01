@@ -40,9 +40,7 @@ export default class FavoritsList extends React.Component {
   renderLoadingView() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          தருவிக்கப்படுகின்றது...
-        </Text>
+        <Text style={styles.welcome}>{Strings.loadingText}</Text>
       </View>
     );
   }
@@ -73,12 +71,10 @@ export default class FavoritsList extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: (Platform.OS === 'ios') ? 63 : 53,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
     backgroundColor: '#fff',
-    paddingBottom: 45,
   },
   welcome: {
     fontSize: 20,

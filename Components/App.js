@@ -12,7 +12,7 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import {Actions, ActionConst, Scene, Router} from 'react-native-router-flux';
+import {Actions, ActionConst, Scene, Router, Modal, Reducer} from 'react-native-router-flux';
 
 import AlbumList from './AlbumList';
 import Album from './Album';
@@ -42,6 +42,15 @@ export default class App extends React.Component {
     };
   }
 
+  reducerCreate(params){
+      const defaultReducer = Reducer(params);
+      return (state, action)=>{
+          console.log("ACTION:", action);
+          return defaultReducer(state, action);
+      }
+  };
+
+
   componentDidMount(){
     new FileSystem().downloadAllSongs()
   }
@@ -55,9 +64,9 @@ export default class App extends React.Component {
     console.log('from here albums', this.state.albums)
 
     return (
-      <Router>
-        <Scene key="tabbar">
-          <Scene key="tabbar" tabs={true}>
+      <Router createReducer={this.reducerCreate}>
+        <Scene key="modal" component={Modal}>
+          <Scene key="tabbar" tabs={true}  hideNavBar={true}>
             <Scene key="tab1"  title={Strings.ta.favoriteTitle} initial>
                 <Scene key="favorites" component={FavoriteList} title={Strings.ta.favoriteTitle} titleStyle={styles.navBar}/>
                 <Scene key="favoriteShow" component={Album}  hideNavBar hideTabBar/>

@@ -55,9 +55,7 @@ export default class AlbumList extends React.Component {
     return (
       <View style={styles.container}>
         <ActivityIndicator color={Strings.tintColor} size="large"/>
-        <Text style={styles.welcome}>
-          தருவிக்கப்படுகின்றது...
-        </Text>
+          <Text style={styles.welcome}>{Strings.loadingText}</Text>
       </View>
     );
   }
@@ -79,12 +77,10 @@ export default class AlbumList extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:(Platform.OS === 'ios') ? 63 : 50,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
     backgroundColor: '#fff',
-    paddingBottom: 45,
   },
   welcome: {
     fontSize: 20,

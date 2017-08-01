@@ -11,6 +11,7 @@ export default {
         albumsTitle:'அனைத்தும்',
         settingsTitle:'அமைப்பு',
         downloadTitle: 'தரவிறக்குக',
+        loadingText: 'தருவிக்கப்படுகின்றது...',
         searchPlaceholder: 'இறுவெட்டுக்களும் பாடல்களும் தேட',
         titleFont: 'SUNDARAM-2865',
     },
@@ -19,6 +20,7 @@ export default {
         albumsTitle:'Albums',
         settingsTitle:'Settings',
         downloadTitle: 'Download',
+        loadingText: 'Loading...',
         searchPlaceholder: 'Search for Album or Song',
         titleFont: 'SUNDARAM-2865',
     }
