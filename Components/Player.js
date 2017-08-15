@@ -46,23 +46,23 @@ export default class Player extends React.Component {
 
   togglePlay(){
     if(this.state.playing){
-      this.props.passProps.sound.pause()
-      this.props.passProps.sound.getCurrentTime((seconds) => {
-        // Changes the state to paused
-        MusicControl.updatePlayback({
-          state: MusicControl.STATE_PAUSED,
-          elapsedTime: seconds
-        })
-      });
+      this.props.passProps.pause()
+      // this.props.passProps.getCurrentTime((seconds) => {
+      //   // Changes the state to paused
+      //   MusicControl.updatePlayback({
+      //     state: MusicControl.STATE_PAUSED,
+      //     elapsedTime: seconds
+      //   })
+      // });
     }
     else{
-      this.props.passProps.sound.play()
-      this.props.passProps.sound.getCurrentTime((seconds) => {
-        // Changes the state to paused
-        MusicControl.updatePlayback({
-          elapsedTime: seconds
-        })
-      });
+      this.props.passProps.play()
+      // this.props.passProps.getCurrentTime((seconds) => {
+      //   // Changes the state to paused
+      //   MusicControl.updatePlayback({
+      //     elapsedTime: seconds
+      //   })
+      // });
     }
     this.setState({ playing: !this.state.playing });
   }
@@ -70,12 +70,7 @@ export default class Player extends React.Component {
   
   toggleVolume(){
     this.setState({ muted: !this.state.muted });
-    if (this.state.muted){
-      this.props.passProps.sound.setVolume(0);
-    }
-    else{
-      this.props.passProps.sound.setVolume(1);
-    }
+    this.props.passProps.setMuted(!this.state.muted)
   }
 
   toggleShuffle(){
@@ -89,7 +84,7 @@ export default class Player extends React.Component {
         currentTime: 0,
       });
     } else {
-      this.props.passProps.sound.setCurrentTime(0);
+      this.props.passProps.setCurrentTime(0);
       this.setState({
         currentTime: 0,
       });
@@ -128,7 +123,8 @@ export default class Player extends React.Component {
   }
 
   onSlidingComplete(){
-    this.props.passProps.sound.setCurrentTime(this.state.currentTime);
+    console.log('current time', this.state.currentTime)
+    this.props.passProps.seekTo(this.state.currentTime)
     this.setState({ sliding: false });
   }
 
@@ -159,6 +155,7 @@ export default class Player extends React.Component {
       this.props.passProps.playSong(song)
       return;
     }
+    
     console.log('showing just player', this.state, this.props)
     this.setState({
       song: this.props.passProps.getCurrentSong()

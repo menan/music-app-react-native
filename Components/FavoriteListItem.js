@@ -4,10 +4,11 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   ListView,
   View,
   Image,
+  ImageBackground
 } from 'react-native';
 import Button from 'react-native-button';
 import {Actions} from 'react-native-router-flux';
@@ -17,8 +18,8 @@ import Strings from '../Utilities/Strings';
 export default class FavoriteListItem extends React.Component {
   render() {
     return (
-      <TouchableHighlight onPress={ () => Actions.favoriteShow({ album: this.props.album, kind: 'fav'}) } activeOpacity={ 100 } underlayColor="#ea4b54">
-        <Image
+      <TouchableOpacity onPress={ () => Actions.favoriteShow({ album: this.props.album, kind: 'fav'}) } activeOpacity={ 100 } underlayColor="#ea4b54">
+        <ImageBackground
           style={ styles.artistBg }
           resizeMode='cover'
           source={{uri:  this.props.album.art_url  }}
@@ -33,8 +34,8 @@ export default class FavoriteListItem extends React.Component {
             source={{uri:  this.props.album.art_url  }}
           />
         </View> 
-        </Image>
-      </TouchableHighlight>
+        </ImageBackground>
+      </TouchableOpacity>
     );
   }
 }

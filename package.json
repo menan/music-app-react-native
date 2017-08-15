@@ -20,6 +20,8 @@
     "react-native-sound": "https://github.com/menan/react-native-sound.git",
     "react-native-vector-icons": "^4.0.1",
     "react-native-video": "^1.0.0",
+    "react-native-animatable": "^1.1.0",
+    "react-native-navigation": "latest",
     "realm": "^1.10.0"
   },
   "devDependencies": {

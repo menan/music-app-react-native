@@ -41,13 +41,13 @@ export default class App extends React.Component {
     };
   }
 
-  reducerCreate(params){
-      const defaultReducer = Reducer(params);
-      return (state, action)=>{
-          console.log("ACTION:", action);
-          return defaultReducer(state, action);
-      }
-  };
+  // reducerCreate(params){
+  //     const defaultReducer = Reducer(params);
+  //     return (state, action)=>{
+  //         console.log("ACTION:", action);
+  //         return defaultReducer(state, action);
+  //     }
+  // };
 
 
   componentDidMount(){
@@ -63,23 +63,17 @@ export default class App extends React.Component {
     console.log('from here albums', this.state.albums)
 
     return (
-      <Router createReducer={this.reducerCreate}>
-        <Scene key="modal" component={Modal} modal>
-          <Scene key="tabbar" tabs  hideNavBar>
-            <Scene key="tab1"  title={Strings.ta.favoriteTitle} icon={TabIcon} initial>
-                <Scene key="favorites" component={FavoriteList} title={Strings.ta.favoriteTitle} titleStyle={styles.navBar}/>
-                <Scene key="favoriteShow" component={Album}  hideNavBar hideTabBar/>
-            </Scene>
-            <Scene key="tab2" title={Strings.ta.albumsTitle} icon={TabIcon}>
-              <Scene key="albums" component={AlbumList} title={Strings.ta.albumsTitle} titleStyle={styles.navBar} passProps={albumService} leftButtonImage={require('../assets/images/search.png')} onLeft={() => Actions.search({albums: this.state.albums})}/>
-              <Scene key="albumShow" hideNavBar component={Album} hideTabBar/>
-            </Scene>
-            <Scene key="tab3" title={Strings.ta.settingsTitle} icon={TabIcon} titleStyle={styles.navBar}>
-              <Scene key="settings" title={Strings.ta.settingsTitle} component={Settings} />
-            </Scene>
+      <Router>
+        <Scene key="modal" component={Modal} modal hideNavBar>
+
+          <Scene key="favs"  title={Strings.ta.favoriteTitle} icon={TabIcon} initial>
+              <Scene key="favorites" component={FavoriteList} title={Strings.ta.favoriteTitle} titleStyle={styles.navBar} passProps={albumService} leftButtonImage={require('../assets/images/search.png')} onLeft={() => Actions.search({albums: this.state.albums})}/>
+              <Scene key="favoriteShow" component={Album}  hideNavBar hideTabBar/>
           </Scene>
           <Scene key="player" component={Player} title="Player"  hideNavBar passProps={audioPlayer}/>
-          <Scene key="search" direction="vertical" passProps={albumService} component={Search} title="Search" panHandlers={null}  hideTabBar hideNavBar hideBackImage leftTitle="Cancel" onLeft={() => Actions.pop()}/>
+          <Scene key="search" direction="vertical" passProps={albumService} component={Search} title="Search" panHandlers={null}  hideTabBar hideNavBar hideBackImage leftTitle="Cancel" onLeft={() => Actions.pop()}>
+            <Scene key="albumShow" hideNavBar component={Album} hideNavBar hideTabBar/>
+          </Scene>
         </Scene>
       </Router>
     );

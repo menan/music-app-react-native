@@ -89,12 +89,12 @@ export default class Search extends React.Component {
 
 
   componentDidMount(){
-    console.log('albums',this.props.passProps.getAlbums())
-    this.nameInput.focus();
+    this.fetchData();
+    console.log('albums',this.state.ablums);
   }
   
   handleText(text){
-    console.log('text length',text.length)
+    console.log('this state', this.state)
     if (text.length <= 0){
         this.setState({
             searched: false,
@@ -107,6 +107,7 @@ export default class Search extends React.Component {
 
     console.log('searched albums',newAlbums)
     this.setState({
+        text: text,
         albums: newAlbums,
         dataSource: this.state.dataSource.cloneWithRows(newAlbums),
         searched: true,
@@ -116,7 +117,6 @@ export default class Search extends React.Component {
   }
   
     render(){
-        console.log('this state: ', this.state)
         return (
             <View style={styles.view}>
                 <View style={styles.container}>
@@ -128,18 +128,32 @@ export default class Search extends React.Component {
                         underlineColorAndroid={Strings.tintColor}
                         autoCorrect={false}
                         placeholder={Strings.ta.searchPlaceholder}
-                        onChangeText={this.handleText.bind(this)}
+                        onChangeText={(text) => this.handleText(text)}
+                        value={this.state.text}
                         />
                 </View>
-                {this.state.searched && 
-                    <ListView
+                <ListView
                     style={ styles.albumList }
                     dataSource={this.state.dataSource}
                     enableEmptySections={true}
                     keyboardDismissMode='on-drag'
                     renderRow={ ( album ) => <AlbumListItem album={ album } /> }/>
-                    }
             </View>
         );
     }
+
+
+  fetchData() {
+    console.log('passProps Albums',this.props.passProps)
+
+    this.props.passProps.fetch(function(data){
+        console.log('loaded albums',data.length);
+        this.setState({
+            albums: data,
+            dataSource: this.state.dataSource.cloneWithRows(data),
+            loaded: true,
+        })
+    }.bind(this))
+  }
 }
+
