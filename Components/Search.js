@@ -136,6 +136,7 @@ export default class Search extends React.Component {
                     style={ styles.albumList }
                     dataSource={this.state.dataSource}
                     enableEmptySections={true}
+                    removeClippedSubviews={false}
                     keyboardDismissMode='on-drag'
                     renderRow={ ( album ) => <AlbumListItem album={ album } /> }/>
             </View>
