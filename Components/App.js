@@ -71,8 +71,9 @@ export default class App extends React.Component {
               <Scene key="favoriteShow" component={Album}  hideNavBar hideTabBar/>
           </Scene>
           <Scene key="player" component={Player} title="Player"  hideNavBar passProps={audioPlayer}/>
-          <Scene key="search" direction="vertical" passProps={albumService} component={Search} title="Search" panHandlers={null}  hideTabBar hideNavBar hideBackImage leftTitle="Cancel" onLeft={() => Actions.pop()}>
-            <Scene key="albumShow" hideNavBar component={Album} hideNavBar hideTabBar/>
+          <Scene key="search">
+            <Scene key="albums" direction="vertical" passProps={albumService} component={Search} title="Search" panHandlers={null}  hideTabBar hideNavBar hideBackImage leftTitle="Cancel" onLeft={() => Actions.pop()}/>
+            <Scene key="albumShow" hideNavBar component={Album} hideNavBar hideTabBar panHandlers={null}/>
           </Scene>
         </Scene>
       </Router>
