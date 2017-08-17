@@ -155,7 +155,11 @@ export class AudioPlayer {
         })
     }
 
-    updateTime(sound, obj){
+    getDuration(){
+        return duration
+    }
+
+    updateTime(){
         sound.getCurrentTime((seconds) => {
             currentTime = seconds
             MusicControl.updatePlayback({
@@ -163,6 +167,11 @@ export class AudioPlayer {
             })
         })
     }
+
+    getTime(){
+        return currentTime
+    }
+    
 
     updateMusicControl(song){
         MusicControl.enableBackgroundMode(true);

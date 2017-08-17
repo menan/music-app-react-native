@@ -47,22 +47,9 @@ export default class Player extends React.Component {
   togglePlay(){
     if(this.state.playing){
       this.props.passProps.pause()
-      // this.props.passProps.getCurrentTime((seconds) => {
-      //   // Changes the state to paused
-      //   MusicControl.updatePlayback({
-      //     state: MusicControl.STATE_PAUSED,
-      //     elapsedTime: seconds
-      //   })
-      // });
     }
     else{
       this.props.passProps.play()
-      // this.props.passProps.getCurrentTime((seconds) => {
-      //   // Changes the state to paused
-      //   MusicControl.updatePlayback({
-      //     elapsedTime: seconds
-      //   })
-      // });
     }
     this.setState({ playing: !this.state.playing });
   }
@@ -132,14 +119,12 @@ export default class Player extends React.Component {
     this.setState({ playing: false });
   }
 
-  updateTime(sound, obj){
-    sound.getCurrentTime((seconds) => {
-      // Changes the volume
-      MusicControl.updatePlayback({
-        elapsedTime: seconds
-      })
-      this.setState({ currentTime: seconds});
-    })
+  updateTime(){
+    this.setState({
+      currentTime: this.props.passProps.getTime(),
+      songDuration: this.props.passProps.getDuration()
+    });
+    
   }
 
   playCurrentSong(){
@@ -153,61 +138,9 @@ export default class Player extends React.Component {
       });
 
       this.props.passProps.playSong(song)
+      timer = setInterval(this.updateTime.bind(this), 1000);
       return;
     }
-    
-    console.log('showing just player', this.state, this.props)
-    this.setState({
-      song: this.props.passProps.getCurrentSong()
-    });
-    console.log('this state', this.state, this.props.passProps.getCurrentSong())
-    return;
-
-    var fileURL = song.song_url
-    var directory = ''
-    console.log('playing song',song)
-
-    if (song.status == 2){
-      fileURL = song.local_path
-      // directory = Sound.DOCUMENT
-    }
-    else{
-        if (Platform.OS == 'android')
-            return;
-    }
-    console.log('playing from url', 'Sound.DOCUMENT', fileURL)
-
-      // Enable playback in silence mode (iOS only)
-      Sound.setCategory('Playback');
-      this.props.passProps.stop()
-      // Load the sound file 'whoosh.mp3' from the app bundle
-      // See notes below about preloading sounds within initialization code below.
-      this.props.passProps.sound = new Sound(fileURL, directory, (error) => {
-        if (error) {
-          console.log('failed to load the sound', error);
-          return;
-        }
-        this.setState({ songDuration: this.props.passProps.sound.getDuration() });
-        // loaded successfully
-        console.log('duration in seconds: ' + this.props.passProps.sound.getDuration() + ', number of channels: ' + this.props.passProps.sound.getNumberOfChannels());
-        this.updateMusicControl()
-        timer = setInterval(this.updateTime.bind(this, this.props.passProps.sound), 1000);
-        // Play the sound with an onEnd callback
-        this.props.passProps.sound.play((success) => {
-          if (success) {
-            console.log('successfully finished playing');
-
-
-          } else {
-            console.log('playback failed due to audio decoding errors');
-          }
-        });
-
-            // Get the current playback point in seconds
-            this.props.passProps.sound.getCurrentTime((seconds) => console.log('at ' + seconds));
-      });
-
-
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -230,7 +163,6 @@ export default class Player extends React.Component {
 
   render() {
     let song = this.state.song
-    console.log('rendering song',song)
     if(!song) return(
       <View></View>
     );
