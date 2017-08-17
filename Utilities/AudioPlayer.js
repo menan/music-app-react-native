@@ -156,7 +156,10 @@ export class AudioPlayer {
     }
 
     getDuration(){
-        return duration
+        if (duration && duration > 0){
+            return duration
+        }
+        return 0
     }
 
     updateTime(){
