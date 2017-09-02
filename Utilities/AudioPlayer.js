@@ -52,6 +52,7 @@ export class AudioPlayer {
 
     addToPlaylist(song){
         console.log('adding to playlist',song)
+        if (!song) return;
         playlist.push(song)
     }
 
@@ -102,9 +103,11 @@ export class AudioPlayer {
     }
 
     playNext(){
-        if (currentIndex >= playlist.length) return
+        console.log(`playlist: ${playlist} ${currentIndex}`)
+        let song = playlist[currentIndex]
+        if (!song || playlist.length == 0 || currentIndex >= playlist.length) return
         currentIndex++
-        this.playSong(playlist[currentIndex])
+        this.playSong(song)
     }
     playPrev(){
         if (currentIndex >= 0) return
@@ -116,7 +119,7 @@ export class AudioPlayer {
         this.addToPlaylist(song)
         currentIndex = playlist.length - 1
         console.log('added song and playing', playlist, currentIndex)
-        Sound.setCategory('Playback')
+        Sound.setCategory('Playback', false)
         let fileURL = song.song_url
         const directory = ''
 

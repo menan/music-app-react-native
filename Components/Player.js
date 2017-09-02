@@ -120,9 +120,15 @@ export default class Player extends React.Component {
   }
 
   updateTime(){
+    let time = this.props.passProps.getTime()
+    let duration = this.props.passProps.getDuration() == 0 ? 1 : this.props.passProps.getDuration() 
+
+
+
+    console.log(`duration ${duration}, time: ${time}`)
     this.setState({
-      currentTime: this.props.passProps.getTime(),
-      songDuration: this.props.passProps.getDuration()
+      currentTime: time,
+      songDuration: duration
     });
     
   }
