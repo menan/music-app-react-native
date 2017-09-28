@@ -67,7 +67,7 @@ export default class App extends React.Component {
         <Scene key="modal" component={Modal} modal hideNavBar>
 
           <Scene key="favs"  title={Strings.ta.favoriteTitle} icon={TabIcon} initial>
-              <Scene key="favorites" component={FavoriteList} title={Strings.ta.favoriteTitle} titleStyle={styles.navBar} passProps={albumService} leftButtonImage={require('../assets/images/search.png')} onLeft={() => Actions.search({albums: this.state.albums})}/>
+              <Scene key="favorites" component={FavoriteList} title={Strings.ta.favoriteTitle} titleStyle={styles.navBar} passProps={albumService} leftButtonImage={require('../assets/images/search.png')} onLeft={() => Actions.search({albums: this.state.albums})} rightButtonImage={require('../assets/images/music.png')} onRight={() => Actions.player({albums: this.state.albums})}/>
               <Scene key="favoriteShow" component={Album}  hideNavBar hideTabBar/>
           </Scene>
           <Scene key="player" component={Player} title="Player"  hideNavBar passProps={audioPlayer}/>
