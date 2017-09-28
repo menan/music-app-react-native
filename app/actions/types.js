@@ -1,0 +1,3 @@
+export const SET_FETCHED_ALBUMS = 'SET_FETCHED_ALBUMS'
+export const SET_FAV_SONG = 'SET_FAV_SONG'
+export const SET_UNFAV_SONG = 'SET_UNFAV_SONG'
